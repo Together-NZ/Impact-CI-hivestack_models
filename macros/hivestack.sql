@@ -37,11 +37,11 @@ SELECT
   creative_name ,
   line_item,
   CASE 
-    WHEN ARRAY_LENGTH(SPLIT(line_item,'_'))>=8 THEN SPLIT(line_item,'_')[7]
+    WHEN ARRAY_LENGTH(SPLIT(line_item,'_'))>=8 THEN SPLIT(line_item,'_')[OFFSET(7)]
     ELSE 'Other'
   END AS audience_name,
   CASE
-    WHEN ARRAY_LENGTH(SPLIT(campaign_name,'_'))>=1 THEN SPLIT(campaign_name,'_')[1]
+    WHEN ARRAY_LENGTH(SPLIT(campaign_name,'_'))>=1 THEN SPLIT(campaign_name,'_')[OFFSET(1)]
     ELSE 'Other'
   END AS campaign_descr,
   CASE 
