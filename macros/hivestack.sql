@@ -1,4 +1,4 @@
-{% macro hivestack(project_name,dataset_name,report_name) %}
+{% macro hivestack(table_name,report_name) %}
 with basic as (
 SELECT 
   JSON_VALUE(data, '$.datetime') AS date,
@@ -23,7 +23,7 @@ SELECT
 
       ORDER BY CAST(JSON_VALUE(data, '$.spend') AS FLOAT64) DESC
   ) as row_num ,
-  FROM {{project_name}}.{{dataset_name}}.{{report_name}}),
+  FROM {{ source(table_name, report_name) }}),
   deduplicate_data AS (
     SELECT date,campaign_name,campaign_id,city,creative_name,line_item,line_item_id,concentration,impressions,plays,progress,media_cost,
     row_num FROM basic where row_num = 1
