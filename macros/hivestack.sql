@@ -23,7 +23,8 @@ SELECT
 
       ORDER BY CAST(JSON_VALUE(data, '$.spend') AS FLOAT64) DESC
   ) as row_num ,
-  FROM {{ source(table_name, report_name) }}),
+  FROM {{ source(table_name, report_name) }}
+  ),
   deduplicate_data AS (
     SELECT date,campaign_name,campaign_id,city,creative_name,line_item,line_item_id,concentration,impressions,plays,progress,media_cost,
     row_num FROM basic where row_num = 1
@@ -41,7 +42,7 @@ SELECT
     ELSE 'Other'
   END AS audience_name,
   CASE
-    WHEN ARRAY_LENGTH(SPLIT(campaign_name,'_'))>=1 THEN SPLIT(campaign_name,'_')[OFFSET(1)]
+    WHEN ARRAY_LENGTH(SPLIT(campaign_name,'_'))>=2 THEN SPLIT(campaign_name,'_')[OFFSET(1)]
     ELSE 'Other'
   END AS campaign_descr,
   CASE 
