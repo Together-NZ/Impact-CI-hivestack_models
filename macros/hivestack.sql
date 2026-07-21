@@ -61,8 +61,7 @@ SELECT
   line_item_id,
   concentration,
   date,
-  progress,
-  'Hivestack' AS platform
+  progress
   FROM deduplicate_data
   GROUP BY campaign_name,campaign_id,city,creative_name,line_item,line_item_id,concentration,date,progress
 
